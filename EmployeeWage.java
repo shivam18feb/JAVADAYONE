@@ -7,27 +7,33 @@ public static final int IS_PART_TIME = 1;
         public static final int PART_DAY_HR = 4;
         public static final int DAYS_PER_MONTH = 20;
  
-        public static void main(String[] args) {
-                int days = 1;
-                double salary = 0;
-                while (days <= DAYS_PER_MONTH) {
-                        double empCheck = Math.floor(Math.random() * 10) % 3;
-                        switch ((int) empCheck) {
-                        case IS_PART_TIME:
-                                salary = (salary + (PART_DAY_HR * PER_HR));
+        static int days = 1;
+        static int workingHours = 0;
+        static int totalHours = 0;
+
+        public static int getWorkingHours() {
+                int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+                switch (empCheck) {
+                case 1:
+                        workingHours = DAY_HR;
                         break;
-                        case IS_FULL_TIME:
-                                salary = (salary + (DAY_HR * PER_HR));
+                case 2:
+                        workingHours = PART_DAY_HR;
                         break;
-                        default:
-                                salary = (salary + 0);
-                        }
-                        days++;
+                default:
+                        workingHours = 0;
+                        break;
                 }
-                System.out.println("Employee Wage Per Month: " + salary); 
-			
-
-
-
+                return workingHours;
+        }
+ 
+        public static void main(String[] args) {
+                while (days <= DAYS_PER_MONTH && totalHours <= 100) {
+                        totalHours = (totalHours + getWorkingHours());
+                        if (getWorkingHours() != 0) {
+                                days++;
+                        }
+                }
+                System.out.println("Employee Wage Per Month: " + (PER_HR * totalHours)); 
 	}
 }
